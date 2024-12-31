@@ -15,13 +15,55 @@ const createHomePageTemplate = () => /* html */ `
         </header>
 
         <main>
+            <center>
+                <div class="search" style="text-align:center">
+                    <input 
+                    type="search"
+                    name="search"
+                    placeholder="Search books by title...."
+                    hx-post="/books/search"
+                    hx-trigger="keyup changed delay:300ms"
+                    hx-target=".book-list"
+                    >
+                    <input 
+                    type="search"
+                    name="search"
+                    placeholder="Search books by author...."
+                    hx-post="/author/search"
+                    hx-trigger="keyup changed delay:300ms"
+                    hx-target=".book-list"
+                    >
+                </div>
+            </center>
+                
             <div class="book-list">
-            <!-- book list here later -->
+                <button hx-get="/books" hx-target=".book-list" >Show Books</button>
             </div>
 
             <div class="add-book-form">
             <h2>What do you want to read?</h2>
-            <!-- form template here later -->
+                <form
+                    hx-post="/books" 
+                    hx-on::after-request="document.querySelector('form').reset()"
+                    hx-target=".book-list ul" 
+                    hx-swap="beforeend"
+                >
+                    <input 
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        required
+                    >
+                    <input 
+                        type="text"
+                        name="author"
+                        placeholder="Author"
+                        required
+                    >
+                    <button>
+                            Add Book
+                    </button>
+                </form>
             </div>
         </main>
         </body>
